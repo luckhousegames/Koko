@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luckhouse Games - Sistema de Gestão v5.0</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- CSS Personalizado -->
+    <link href="sistema_completo.css" rel="stylesheet">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Meta tags PWA -->
+    <meta name="theme-color" content="#007bff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Luckhouse Games">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo_luckhouse_modern.png">
+    <link rel="apple-touch-icon" href="logo_luckhouse_modern.png">
+</head>
+<body class="dark-theme">
+
+    <!-- ===== TELA DE LOGIN ===== -->
+    <div id="login-screen" class="d-flex align-items-center justify-content-center">
+        <div class="login-card">
+            <div class="text-center mb-4">
+                <img src="logo_luckhouse_modern.png" alt="Luckhouse Games" class="img-fluid mb-3" style="max-height: 80px;">
+                <h2>Luckhouse Games</h2>
+                <p class="text-muted">Sistema de Gestão v5.0</p>
+            </div>
+            
+            <form id="formLogin">
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="login-usuario" placeholder="Usuário" required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" id="login-senha" placeholder="Senha" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt me-2"></i>Entrar
+                </button>
+            </form>
+            
+            <div class="text-center mt-3">
+                <small class="text-muted">
+                    Usuário: <strong>luckmaster</strong> | Senha: <strong>L@1998*</strong>
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== APLICAÇÃO PRINCIPAL ===== -->
+    <div id="main-app" class="d-none">
+        <div id="wrapper">
+            <!-- ===== SIDEBAR ===== -->
+            <div id="sidebar-wrapper">
+                <div class="sidebar-heading">
+                    <img src="logo_luckhouse_modern.png" alt="Logo" class="logo">
+                    <div>Luckhouse Games</div>
+                    <small>Sistema de Gestão v5.0</small>
+                </div>
+                
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action active" data-target="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>Dashboard
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="clientes">
+                        <i class="fas fa-users"></i>Clientes
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="produtos">
+                        <i class="fas fa-box"></i>Produtos
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="servicos">
+                        <i class="fas fa-tools"></i>Serviços
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="ordens-servico">
+                        <i class="fas fa-clipboard-list"></i>Ordens de Serviço
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="pdv">
+                        <i class="fas fa-cash-register"></i>Ponto de Venda
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="financeiro">
+                        <i class="fas fa-chart-line"></i>Financeiro
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="envio-lab">
+                        <i class="fas fa-shipping-fast"></i>ENVIO LAB
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="tecnicos">
+                        <i class="fas fa-user-cog"></i>Técnicos
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="avaliacao-consoles">
+                        <i class="fas fa-gamepad"></i>Avaliação Consoles
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="relatorios">
+                        <i class="fas fa-chart-bar"></i>Relatórios
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="configuracoes">
+                        <i class="fas fa-cog"></i>Configurações
+                    </a>
+                </div>
+            </div>
+
+            <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+            <div id="page-content-wrapper">
+                <!-- ===== NAVBAR ===== -->
+                <nav class="navbar navbar-expand-lg">
+                    <div class="container-fluid">
+                        <button class="btn" id="menu-toggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        
+                        <span class="navbar-brand ms-3" id="page-title">Dashboard</span>
+                        
+                        <div class="navbar-nav ms-auto">
+                            <span class="navbar-text me-3">
+                                <i class="fas fa-user me-1"></i>
+                                <span id="current-user">Usuário</span>
+                            </span>
+                            <button class="btn btn-outline-danger btn-sm" id="logout-button">
+                                <i class="fas fa-sign-out-alt me-1"></i>Sair
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- ===== SEÇÃO DASHBOARD ===== -->
+                <div id="dashboard-section" class="content-section">
+                    <div class="page-header">
+                        <h1 class="page-title">Dashboard</h1>
+                        <p class="page-subtitle">Visão geral do sistema</p>
+                    </div>
+                    
+                    <!-- Cards de Estatísticas -->
+                    <div class="row mb-4">
+                        <div class="col-md-3 mb-3">
+                            <div class="dashboard-card" data-target="clientes">
+                                <div class="card-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="card-title">Total Clientes</div>
+                                <div class="card-value" id="dashboard-total-clientes">0</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="dashboard-card" data-target="produtos">
+                                <div class="card-icon">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                <div class="card-title">Total Produtos</div>
+                                <div class="card-value" id="dashboard-total-produtos">0</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="dashboard-card" data-target="ordens-servico">
+                                <div class="card-icon">
+                                    <i class="fas fa-clipboard-list"></i>
+                                </div>
+                                <div class="card-title">OS Ativas</div>
+                                <div class="card-value" id="dashboard-os-ativas">0</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="dashboard-card" data-target="pdv">
+                                <div class="card-icon">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                                <div class="card-title">Faturamento Mês</div>
+                                <div class="card-value" id="dashboard-faturamento">R$ 0,00</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resumo Financeiro -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="stats-card">
+                                <div class="stats-value text-success" id="dashboard-receitas">R$ 0,00</div>
+                                <div class="stats-label">Total Receitas</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stats-card">
+                                <div class="stats-value text-danger" id="dashboard-despesas">R$ 0,00</div>
+                                <div class="stats-label">Total Despesas</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stats-card">
+                                <div class="stats-value" id="dashboard-saldo">R$ 0,00</div>
+                                <div class="stats-label">Saldo</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- OS Recentes -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-clock me-2"></i>Ordens de Serviço Recentes
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="dashboard-os-recentes"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== SEÇÃO CLIENTES ===== -->
+                <div id="clientes-section" class="content-section d-none">
+                    <div class="page-header">
+                        <h1 class="page-title">Gestão de Clientes</h1>
+                        <p class="page-subtitle">Cadastro e gerenciamento de clientes</p>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <div class="search-container">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" class="form-control" id="searchClienteInput" placeholder="Buscar cliente por nome, telefone, CPF ou email...">
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <button class="btn btn-primary-custom" id="btn-novo-cliente">
+                                <i class="fas fa-plus me-2"></i>Novo Cliente
+                            </button>
+                            <button class="btn btn-info-custom" id="btn-search-cliente">
+                                <i class="fas fa-search me-2"></i>Buscar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Lista de Clientes</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="cliente-list-container"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== SEÇÃO PRODUTOS ===== -->
+                <div id="produtos-section" class="content-section d-none">
+                    <div class="page-header">
+                        <h1 class="page-title">Gestão de Produtos</h1>
+                        <p class="page-subtitle">Cadastro e controle de estoque</p>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <div class="search-container">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" class="form-control" placeholder="Buscar produto...">
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <button class="btn btn-primary-custom" id="btn-novo-produto">
+                                <i class="fas fa-plus me-2"></i>Novo Produto
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Lista de Produtos</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="produto-list-container"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== SEÇÃO SERVIÇOS ===== -->
+                <div id="servicos-section" class="content-section d-none">
+                    <div class="page-header">
+                        <h1 class="page-title">Gestão de Serviços</h1>
+                        <p class="page-subtitle">Cadastro de serviços oferecidos</p>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <div class="search-container">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" class="form-control" placeholder="Buscar serviço...">
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <button class="btn btn-primary-custom" id="btn-novo-servico">
+                                <i class="fas fa-plus me-2"></i>Novo Serviço
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Lista de Serviços</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="servico-list-container"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== SEÇÃO ORDENS DE SERVIÇO ===== -->
+                <div id="ordens-servico-section" class="content-section d-none">
+                    <div class="page-header">
+                        <h1 class="page-title">Ordens de Serviço</h1>
+                        <p class="page-subtitle">Gestão completa de OS</p>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <div class="search-container">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" class="form-control" placeholder="Buscar OS por número, cliente ou equipamento...">
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <button class="btn btn-primary-custom" id="btn-nova-os">
+                                <i class="fas fa-plus me-2"></i>Nova OS
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Lista de Ordens de Serviço</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="os-list-container"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== SEÇÃO PDV ===== -->
+                <div id="pdv-section" class="content-section d-none">
+                    <div class="page-header">
+                        <h1 class="page-title">Ponto de Venda</h1>
+                        <p class="page-subtitle">Sistema de vendas integrado</p>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-8">
+                            <!-- Botões de Ação -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <button class="btn btn-success-custom w-100" id="btn-adicionar-produto-pdv">
+                                        <i class="fas fa-box me-2"></i>Adicionar Produto
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-info-custom w-100" id="btn-adicionar-servico-pdv">
+                                        <i class="fas fa-tools me-2"></i>Adicionar Serviço
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Carrinho -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Carrinho de Compras</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="pdv-carrinho-container" class="pdv-carrinho"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <!-- Informações do Cliente -->
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <h6 class="mb-0">Cliente</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <select class="form-select" id="pdv-cliente-select">
+                                            <option value="">Cliente Avulso</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control" id="pdv-nome-cliente" placeholder="Nome do cliente (opcional)">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Totais e Finalização -->
+                            <div class="pdv-total-section">
+                                <div class="row mb-2">
+                                    <div class="col-6">Subtotal:</div>
+                                    <div class="col-6 text-end" id="pdv-subtotal">R$ 0,00</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-6">
+                                        <input type="number" class="form-control form-control-sm" id="pdv-desconto-percentual" placeholder="% Desc." min="0" max="100" step="0.01">
+                                    </div>
+                                    <div class="col-6 text-end text-danger" id="pdv-desconto-valor">R$ 0,00</div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <div class="col-6"><strong>Total:</strong></div>
+                                    <div class="col-6 text-end pdv-total-value" id="pdv-total">R$ 0,00</div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <select class="form-select" id="pdv-forma-pagamento" required>
+                                        <option value="">Forma de Pagamento</option>
+                                        <option value="Dinheiro">Dinheiro</option>
+                                        <option value="Cartão de Débito">Cartão de Débito</option>
+                                        <option value="Cartão de Crédito">Cartão de Crédito</option>
+                                        <option value="PIX">PIX</option>
+                                        <option value="Transferência">Transferência</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button class="btn btn-warning-custom w-100" id="btn-limpar-carrinho">
+                                            <i class="fas fa-trash me-1"></i>Limpar
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-success-custom w-100" id="btn-finalizar-venda">
+                                            <i class="fas fa-check me-1"></i>Finalizar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== SEÇÃO FINANCEIRO ===== -->
+                <div id="financeiro-section" class="content-section d-none">
+                    <div class="page-header">
+                        <h1 class="page-title">Gestão Financeira</h1>
+                        <p class="page-subtitle">Controle de receitas e despesas</p>
+                    </div>
+                    
+                    <!-- Resumo Financeiro -->
+                    <div id="resumo-financeiro-container" class="mb-4"></div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0 text-success">Receitas</h5>
+                                    <button class="btn btn-success-custom btn-sm" id="btn-nova-receita">
+                                        <i class="fas fa-plus me-1"></i>Nova Receita
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <div id="receitas-list-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0 text-danger">Despesas</h5>
+                                    <button class="btn btn-danger-custom btn-sm" id="btn-nova-despesa">
+                                        <i class="fas fa-plus me-1"></i>Nova Despesa
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <div id="despesas-list-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== SEÇÃO ENVIO LAB ===== -->
+                <div id="envio-lab-section" class="content-section d-none">
+                    <div class="page-header">
+                        <h1 class="page-title">ENVIO LAB</h1>
+                        <p class="page-subtitle">Gestão de envios para assistência terceirizada</p>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <div class="search-container">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" class="form-control" placeholder="Buscar envio...">
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <button class="btn btn-primary-custom" id="btn-novo-envio-lab">
+                                <i class="fas fa-plus me-2"></i>Novo Envio LAB
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Lista de Envios LAB</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="envio-lab-list-container"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== SEÇÃO TÉCNICOS ===== -->
+                <div id="tecnicos-section" class="content-section d-none">
+                    <div class="page-header">
+                        <h1 class="page-title">Gestão de Técnicos</h1>
+                        <p class="page-subtitle">Cadastro de técnicos responsáveis</p>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <div class="search-container">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" class="form-control" placeholder="Buscar técnico...">
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <button class="btn btn-primary-custom" id="btn-novo-tecnico">
+                                <i class="fas fa-plus me-2"></i>Novo Técnico
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Lista de Técnicos</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="tecnicos-list-container"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== SEÇÃO AVALIAÇÃO DE CONSOLES ===== -->
+                <div id="avaliacao-consoles-section" class="content-section d-none">
+                    <div class="page-header">
+                        <h1 class="page-title">Avaliação de Consoles</h1>
+                        <p class="page-subtitle">Sistema de avaliação e precificação</p>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <div class="search-container">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" class="form-control" placeholder="Buscar avaliação...">
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <button class="btn btn-primary-custom" id="btn-nova-avaliacao">
+                                <i class="fas fa-plus me-2"></i>Nova Avaliação
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Lista de Avaliações</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="avaliacao-consoles-list-container"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== SEÇÃO RELATÓRIOS ===== -->
+                <div id="relatorios-section" class="content-section d-none">
+                    <div class="page-header">
+                        <h1 class="page-title">Relatórios e Estatísticas</h1>
+                        <p class="page-subtitle">Análises e indicadores do negócio</p>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="relatorio-section">
+                                <h3 class="relatorio-title">Relatório de Vendas</h3>
+                                <div id="relatorio-vendas-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="relatorio-section">
+                                <h3 class="relatorio-title">Relatório Financeiro</h3>
+                                <div id="relatorio-financeiro-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="relatorio-section">
+                                <h3 class="relatorio-title">Produtos Mais Vendidos</h3>
+                                <div id="produtos-mais-vendidos-container"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="relatorio-section">
+                                <h3 class="relatorio-title">Serviços Mais Realizados</h3>
+                                <div id="servicos-mais-realizados-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== SEÇÃO CONFIGURAÇÕES ===== -->
+                <div id="configuracoes-section" class="content-section d-none">
+                    <div class="page-header">
+                        <h1 class="page-title">Configurações</h1>
+                        <p class="page-subtitle">Configurações do sistema e da loja</p>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="config-section">
+                                <h4 class="config-title">
+                                    <i class="fas fa-store"></i>Configurações da Loja
+                                </h4>
+                                <form id="formConfigLoja">
+                                    <div class="mb-3">
+                                        <label class="form-label">Nome da Loja</label>
+                                        <input type="text" class="form-control" id="config-nome-loja" value="Luckhouse Games">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">CNPJ</label>
+                                        <input type="text" class="form-control" id="config-cnpj">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Telefone</label>
+                                        <input type="text" class="form-control" id="config-telefone">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="config-email">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Endereço</label>
+                                        <textarea class="form-control" id="config-endereco" rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-success-custom">
+                                        <i class="fas fa-save me-2"></i>Salvar Configurações
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="config-section">
+                                <h4 class="config-title">
+                                    <i class="fas fa-cog"></i>Configurações do Sistema
+                                </h4>
+                                <form id="formConfigSistema">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tema</label>
+                                        <select class="form-select" id="config-tema">
+                                            <option value="dark">Escuro</option>
+                                            <option value="light">Claro</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Garantia Padrão (dias)</label>
+                                        <input type="number" class="form-control" id="config-garantia-dias" value="90" min="1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Pontos por Real Gasto</label>
+                                        <input type="number" class="form-control" id="config-pontos-real" value="1" min="0" step="0.1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Pontos para Desconto</label>
+                                        <input type="number" class="form-control" id="config-pontos-desconto" value="100" min="1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Valor do Desconto (R$)</label>
+                                        <input type="number" class="form-control" id="config-valor-desconto" value="10" min="0" step="0.01">
+                                    </div>
+                                    <button type="submit" class="btn btn-success-custom">
+                                        <i class="fas fa-save me-2"></i>Salvar Configurações
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAIS ===== -->
+    
+    <!-- Modal Novo Cliente -->
+    <div class="modal fade" id="modalNovoCliente" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNovoClienteLabelDynamic">Novo Cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="formNovoCliente">
+                    <div class="modal-body">
+                        <input type="hidden" id="cliente-id">
+                        <div class="mb-3">
+                            <label class="form-label">Nome *</label>
+                            <input type="text" class="form-control" id="cliente-nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Telefone</label>
+                            <input type="text" class="form-control" id="cliente-telefone">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">CPF/CNPJ</label>
+                            <input type="text" class="form-control" id="cliente-cpf">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="cliente-email">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Endereço</label>
+                            <textarea class="form-control" id="cliente-endereco" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Pontos de Fidelidade</label>
+                            <input type="number" class="form-control" id="cliente-pontos" min="0" value="0">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary-custom">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Novo Produto -->
+    <div class="modal fade" id="modalNovoProduto" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNovoProdutoLabelDynamic">Novo Produto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="formNovoProduto">
+                    <div class="modal-body">
+                        <input type="hidden" id="produto-id">
+                        <div class="mb-3">
+                            <label class="form-label">Nome *</label>
+                            <input type="text" class="form-control" id="produto-nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Categoria</label>
+                            <select class="form-select" id="produto-categoria">
+                                <option value="">Selecione uma categoria...</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Preço de Custo</label>
+                                    <input type="number" class="form-control" id="produto-custo" min="0" step="0.01">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Preço de Venda *</label>
+                                    <input type="number" class="form-control" id="produto-preco" min="0" step="0.01" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Estoque</label>
+                            <input type="number" class="form-control" id="produto-estoque" min="0" value="0">
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="produto-is-videogame">
+                                <label class="form-check-label" for="produto-is-videogame">
+                                    É um videogame/console
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="produto-consignado">
+                                <label class="form-check-label" for="produto-consignado">
+                                    Produto consignado
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary-custom">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Novo Serviço -->
+    <div class="modal fade" id="modalNovoServico" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNovoServicoLabelDynamic">Novo Serviço</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="formNovoServico">
+                    <div class="modal-body">
+                        <input type="hidden" id="servico-id">
+                        <div class="mb-3">
+                            <label class="form-label">Nome *</label>
+                            <input type="text" class="form-control" id="servico-nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descrição</label>
+                            <textarea class="form-control" id="servico-descricao" rows="3"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Custo do Técnico</label>
+                                    <input type="number" class="form-control" id="servico-custo-tecnico" min="0" step="0.01">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Valor para Cliente *</label>
+                                    <input type="number" class="form-control" id="servico-valor" min="0" step="0.01" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary-custom">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Nova OS -->
+    <div class="modal fade" id="modalNovaOS" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNovaOSLabelDynamic">Nova Ordem de Serviço</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="formNovaOS">
+                    <div class="modal-body">
+                        <input type="hidden" id="os-id">
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Cliente *</label>
+                                    <select class="form-select" id="os-cliente-select" required>
+                                        <option value="">Selecione um cliente...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Técnico Responsável</label>
+                                    <select class="form-select" id="os-tecnico-select">
+                                        <option value="">Selecione um técnico...</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Equipamento *</label>
+                                    <input type="text" class="form-control" id="os-equipamento" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Marca</label>
+                                    <input type="text" class="form-control" id="os-marca">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Modelo</label>
+                                    <input type="text" class="form-control" id="os-modelo">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Número de Série</label>
+                            <input type="text" class="form-control" id="os-serial">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Problema Relatado *</label>
+                            <textarea class="form-control" id="os-problema" rows="3" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Observações/Laudo Técnico</label>
+                            <textarea class="form-control" id="os-observacoes" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Valor do Orçamento</label>
+                                    <input type="number" class="form-control" id="os-valor" min="0" step="0.01">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Status</label>
+                                    <select class="form-select" id="os-status">
+                                        <option value="Aguardando Orçamento">Aguardando Orçamento</option>
+                                        <option value="Orçamento Aprovado">Orçamento Aprovado</option>
+                                        <option value="Em Andamento">Em Andamento</option>
+                                        <option value="Aguardando Peça">Aguardando Peça</option>
+                                        <option value="Concluído">Concluído</option>
+                                        <option value="Entregue">Entregue</option>
+                                        <option value="Cancelado">Cancelado</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Serviço Realizado</label>
+                                    <select class="form-select" id="os-servico-select">
+                                        <option value="">Selecione um serviço...</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary-custom">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Nova Receita -->
+    <div class="modal fade" id="modalNovaReceita" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNovaReceitaLabelDynamic">Nova Receita</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="formNovaReceita">
+                    <div class="modal-body">
+                        <input type="hidden" id="receita-id">
+                        <div class="mb-3">
+                            <label class="form-label">Descrição *</label>
+                            <input type="text" class="form-control" id="receita-descricao" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Valor *</label>
+                                    <input type="number" class="form-control" id="receita-valor" min="0" step="0.01" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Data *</label>
+                                    <input type="date" class="form-control" id="receita-data" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Categoria</label>
+                            <select class="form-select" id="receita-categoria">
+                                <option value="">Selecione uma categoria...</option>
+                                <option value="Venda">Venda</option>
+                                <option value="Serviço">Serviço</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success-custom">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Nova Despesa -->
+    <div class="modal fade" id="modalNovaDespesa" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNovaDespesaLabelDynamic">Nova Despesa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="formNovaDespesa">
+                    <div class="modal-body">
+                        <input type="hidden" id="despesa-id">
+                        <div class="mb-3">
+                            <label class="form-label">Descrição *</label>
+                            <input type="text" class="form-control" id="despesa-descricao" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Valor *</label>
+                                    <input type="number" class="form-control" id="despesa-valor" min="0" step="0.01" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Data *</label>
+                                    <input type="date" class="form-control" id="despesa-data" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Categoria</label>
+                            <select class="form-select" id="despesa-categoria">
+                                <option value="">Selecione uma categoria...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger-custom">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Novo Envio LAB -->
+    <div class="modal fade" id="modalNovoEnvioLab" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNovoEnvioLabLabelDynamic">Novo Envio LAB</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="formNovoEnvioLab">
+                    <div class="modal-body">
+                        <input type="hidden" id="envio-lab-id">
+                        <div class="mb-3">
+                            <label class="form-label">Ordem de Serviço *</label>
+                            <select class="form-select" id="envio-lab-os-select" required>
+                                <option value="">Selecione uma OS...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Laboratório/Assistência *</label>
+                            <input type="text" class="form-control" id="envio-lab-laboratorio" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Data de Envio *</label>
+                                    <input type="date" class="form-control" id="envio-lab-data-envio" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Prazo Estimado</label>
+                                    <input type="date" class="form-control" id="envio-lab-prazo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Custo Estimado</label>
+                                    <input type="number" class="form-control" id="envio-lab-custo" min="0" step="0.01">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Status</label>
+                                    <select class="form-select" id="envio-lab-status">
+                                        <option value="Enviado">Enviado</option>
+                                        <option value="Em Análise">Em Análise</option>
+                                        <option value="Aguardando Peça">Aguardando Peça</option>
+                                        <option value="Concluído">Concluído</option>
+                                        <option value="Retornado">Retornado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Observações</label>
+                            <textarea class="form-control" id="envio-lab-observacoes" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary-custom">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Novo Técnico -->
+    <div class="modal fade" id="modalNovoTecnico" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNovoTecnicoLabelDynamic">Novo Técnico</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="formNovoTecnico">
+                    <div class="modal-body">
+                        <input type="hidden" id="tecnico-id">
+                        <div class="mb-3">
+                            <label class="form-label">Nome *</label>
+                            <input type="text" class="form-control" id="tecnico-nome" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Telefone</label>
+                                    <input type="text" class="form-control" id="tecnico-telefone">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="tecnico-email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Especialidade</label>
+                            <input type="text" class="form-control" id="tecnico-especialidade" placeholder="Ex: Consoles, Controles, Eletrônicos">
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="tecnico-ativo" checked>
+                                <label class="form-check-label" for="tecnico-ativo">
+                                    Técnico ativo
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary-custom">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Nova Avaliação -->
+    <div class="modal fade" id="modalNovaAvaliacao" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNovaAvaliacaoLabelDynamic">Nova Avaliação de Console</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="formNovaAvaliacao">
+                    <div class="modal-body">
+                        <input type="hidden" id="avaliacao-id">
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Console *</label>
+                                    <input type="text" class="form-control" id="avaliacao-console" required placeholder="Ex: PlayStation, Xbox, Nintendo">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Marca *</label>
+                                    <input type="text" class="form-control" id="avaliacao-marca" required placeholder="Ex: Sony, Microsoft, Nintendo">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Modelo *</label>
+                                    <select class="form-select" id="avaliacao-modelo" required>
+                                        <option value="">Selecione o modelo...</option>
+                                        <option value="PlayStation 4">PlayStation 4</option>
+                                        <option value="PlayStation 5">PlayStation 5</option>
+                                        <option value="Xbox One">Xbox One</option>
+                                        <option value="Xbox Series S">Xbox Series S</option>
+                                        <option value="Xbox Series X">Xbox Series X</option>
+                                        <option value="Nintendo Switch">Nintendo Switch</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="avaliacao-criterio">
+                                    <label class="form-label">Estado Geral (1-10)</label>
+                                    <input type="range" class="form-range" id="avaliacao-estado-geral" min="1" max="10" value="5">
+                                    <div class="text-center">
+                                        <span class="badge bg-info" id="estado-geral-value">5</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="avaliacao-criterio">
+                                    <label class="form-label">Funcionamento (1-10)</label>
+                                    <input type="range" class="form-range" id="avaliacao-funcionamento" min="1" max="10" value="5">
+                                    <div class="text-center">
+                                        <span class="badge bg-info" id="funcionamento-value">5</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="avaliacao-criterio">
+                                    <label class="form-label">Acessórios (1-10)</label>
+                                    <input type="range" class="form-range" id="avaliacao-acessorios" min="1" max="10" value="5">
+                                    <div class="text-center">
+                                        <span class="badge bg-info" id="acessorios-value">5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Observações</label>
+                            <textarea class="form-control" id="avaliacao-observacoes" rows="3" placeholder="Detalhes sobre o estado, defeitos, acessórios inclusos, etc."></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Preço Sugerido (Calculado Automaticamente)</label>
+                                    <input type="number" class="form-control" id="avaliacao-preco-sugerido" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-center mt-4">
+                                    <div class="avaliacao-nota" id="nota-final">
+                                        <strong>Nota Final: <span id="media-final">5.0</span>/10</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary-custom">Salvar Avaliação</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Adicionar Produto PDV -->
+    <div class="modal fade" id="modalAdicionarProdutoPDV" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar Produto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="formAdicionarProdutoPDV">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Produto *</label>
+                            <select class="form-select" id="pdv-produto-select" required>
+                                <option value="">Selecione um produto...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Quantidade *</label>
+                            <input type="number" class="form-control" id="pdv-produto-quantidade" min="1" value="1" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success-custom">Adicionar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Adicionar Serviço PDV -->
+    <div class="modal fade" id="modalAdicionarServicoPDV" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar Serviço</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="formAdicionarServicoPDV">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Serviço *</label>
+                            <select class="form-select" id="pdv-servico-select" required>
+                                <option value="">Selecione um serviço...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Quantidade *</label>
+                            <input type="number" class="form-control" id="pdv-servico-quantidade" min="1" value="1" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-info-custom">Adicionar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== TOAST PARA NOTIFICAÇÕES ===== -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert">
+            <div class="toast-header">
+                <strong class="me-auto">Sistema</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="toast-message">
+                Mensagem do sistema
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SCRIPTS ===== -->
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript Principal -->
+    <script src="sistema_completo.js"></script>
+    
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registrado com sucesso:', registration.scope);
+                    })
+                    .catch(function(error) {
+                        console.log('Falha ao registrar ServiceWorker:', error);
+                    });
+            });
+        }
+    </script>
+    
+    <!-- Scripts para Avaliação de Consoles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Atualizar valores dos ranges em tempo real
+            const ranges = ['avaliacao-estado-geral', 'avaliacao-funcionamento', 'avaliacao-acessorios'];
+            ranges.forEach(rangeId => {
+                const range = document.getElementById(rangeId);
+                const valueSpan = document.getElementById(rangeId.replace('avaliacao-', '') + '-value');
+                
+                if (range && valueSpan) {
+                    range.addEventListener('input', function() {
+                        valueSpan.textContent = this.value;
+                        updateMediaFinal();
+                        calcularPrecoSugerido();
+                    });
+                }
+            });
+            
+            function updateMediaFinal() {
+                const estadoGeral = parseInt(document.getElementById('avaliacao-estado-geral').value) || 5;
+                const funcionamento = parseInt(document.getElementById('avaliacao-funcionamento').value) || 5;
+                const acessorios = parseInt(document.getElementById('avaliacao-acessorios').value) || 5;
+                
+                const media = (estadoGeral + funcionamento + acessorios) / 3;
+                const mediaSpan = document.getElementById('media-final');
+                const notaDiv = document.getElementById('nota-final');
+                
+                if (mediaSpan) {
+                    mediaSpan.textContent = media.toFixed(1);
+                }
+                
+                if (notaDiv) {
+                    notaDiv.className = 'avaliacao-nota ';
+                    if (media >= 8) {
+                        notaDiv.className += 'nota-excelente';
+                    } else if (media >= 6) {
+                        notaDiv.className += 'nota-boa';
+                    } else {
+                        notaDiv.className += 'nota-ruim';
+                    }
+                }
+            }
+            
+            // Inicializar valores
+            updateMediaFinal();
+        });
+    </script>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; <span id="currentYear">2024</span> Luckhouse Games - Sistema de Gestão v5.0. Todos os direitos reservados.</p>
+    </div>
+
+</body>
+</html>
+
